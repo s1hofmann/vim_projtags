@@ -7,7 +7,7 @@ if exists('b:projroot')
     finish
 endif
 let s:od=expand('%:p:h')
-while globpath(a:od, '*.projmain')==''
+while globpath(s:od, '*.projroot')==''
     let s:nd=fnamemodify(s:od, ':h')
     if s:nd == s:od
         break
@@ -15,16 +15,23 @@ while globpath(a:od, '*.projmain')==''
         let s:od = s:nd
     endif
 endwhile
-let s:f=globpath(s:od, '*.projmain')
+let s:f=globpath(s:od, '*.projroot')
 if s:f != ''
-    let b:projroot=fnamemodify(s:f, ':h')
-    let b:projname=fnamemodify(b:projroot, ':t')
+    let g:projroot=fnamemodify(s:f, ':h')
+    let g:projname=fnamemodify(g:projroot, ':t')
 endif
 
-function! b:generateTags()
-    if !exists('b:projname') || !exists('b:projroot')
+function GenerateTags()
+    if !exists('g:projname') || !exists('g:projroot')
         finish
     endif
 
-    let b:tag_command = system('head -n 1 '.s:f)
+    let a:tag_command = 'ctags -f ~/.vim/tags/'.g:projname.'.tags '
+    for line in readfile(s:f, '')
+        let a:tag_command=a:tag_command.line.' '
+    endfor
+    if a:tag_command!=''
+        execute('!'.a:tag_command)
+    endif
+
 endfunction
