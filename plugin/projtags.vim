@@ -23,7 +23,7 @@ endif
 
 function GenerateTags()
     if !exists('g:projname') || !exists('g:projroot')
-        finish
+        return
     endif
 
     let a:tag_command = 'ctags -f ~/.vim/tags/'.g:projname.'.tags '
@@ -31,7 +31,9 @@ function GenerateTags()
         let a:tag_command=a:tag_command.line.' '
     endfor
     if a:tag_command!=''
-        execute('!'.a:tag_command)
+        silent !clear
+        execute(':silent !'.a:tag_command)
+        execute(':redraw!')
     endif
 
 endfunction
