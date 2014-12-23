@@ -21,7 +21,7 @@ If you provide a path anyways, this option will be discarded.
 
 ## How does it work?
 
-The plugin will perform a upward search for a \*.projroot file, starting from your current directory level, and set the projects main directory accordingly.
+The plugin will perform an upward search for a \*.projroot file, starting from your current directory level, and set the projects main directory accordingly.
 
 Now if you want to initially create or update the tags file for your current project, simply hit 
 \<leader\>ut to update the tags file using the parameters you supplied in the \*.projroot file.
