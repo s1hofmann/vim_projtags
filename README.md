@@ -13,6 +13,11 @@ Add the following line to your .vimrc:
 ```
 map <leader>ut :call GenerateTags()<CR>
 ```
+
+Optional:
+```
+autocmd BufWritePost * :call GenerateTags()
+```
 ### Note:
 
 You don't have to supply a path to store the tag file. The plugin automatically stores the tag file in ~/.vim/tags/$projectname.tags.
@@ -25,6 +30,8 @@ The plugin will perform an upward search for a \*.projroot file, starting from y
 
 Now if you want to initially create or update the tags file for your current project, simply hit 
 \<leader\>ut to update the tags file using the parameters you supplied in the \*.projroot file.
+
+If you also added the second line, tags will be updated each time a file is saved.
 
 This will generate a tags file named after your projects root directory and store it ~/.vim/tags/
 
